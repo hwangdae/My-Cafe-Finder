@@ -2,18 +2,25 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Search from "@/assets/Search.svg";
 import Link from "next/link";
+import shortid from "shortid";
+import SearchResults from "@/pages/searchResults";
+import MyCafe from "@/pages/myCafe";
+import { useRecoilValue } from "recoil";
+import { cafesState } from "@/globalState/recoilState";
 
 const TABNAV = [
   {
+    id: 0,
     name: "검색",
-    href: "/search",
+    href: "/searchResults",
   },
-  { name: "MYCAFE", href: "/myCafe" },
+  { id: 1, name: "MYCAFE", href: "/myCafe" },
 ];
 
 const SearchContainer = () => {
-    
+  const [step, setStep] = useState<number>(0);
   const [searchName, setSearchName] = useState("");
+  const cafes = useRecoilValue(cafesState);
   return (
     <S.SearchContainer>
       <S.SearchInner>
@@ -31,13 +38,25 @@ const SearchContainer = () => {
         <S.SearchTabMenu>
           {TABNAV.map((item) => {
             return (
-              <li>
-                <Link href={item.href}>{item.name}</Link>
-              </li>
+              <S.TabMenuItem>
+                <S.TabMenuButton
+                  step={step}
+                  id={item.id}
+                  onClick={() => {
+                    item.id === 0 ? setStep(0) : setStep(1);
+                  }}
+                >
+                  {item.name}
+                </S.TabMenuButton>
+              </S.TabMenuItem>
             );
           })}
         </S.SearchTabMenu>
       </S.SearchInner>
+      <S.SearchResultsContainer>
+        <SearchResults cafes={cafes} step={step} />
+        <MyCafe step={step} />
+      </S.SearchResultsContainer>
     </S.SearchContainer>
   );
 };
@@ -50,10 +69,10 @@ const S = {
     position: absolute;
     left: 0;
     top: 0;
-    background-color: #d1bb9e;
   `,
   SearchInner: styled.div`
     padding: 20px;
+    background-color: #d1bb9e;
   `,
   SearchForm: styled.form`
     position: relative;
@@ -91,15 +110,29 @@ const S = {
     align-items: center;
     text-align: center;
     margin-top: 20px;
-    li {
-      cursor: pointer;
-      width: 50%;
-      padding: 10px 0px;
-      border-radius: 22px;
-      &:first-child {
-        background-color: #a79277;
-        color: #fff;
-      }
+  `,
+  TabMenuItem: styled.li`
+    width: 50%;
+    display: block;
+  `,
+  TabMenuButton: styled.button<{ step: number; id: number }>`
+    cursor: pointer;
+    /* display: block; */
+    width: 100%;
+    padding: 10px 0px;
+    border-radius: 22px;
+    background-color: ${(props) =>
+      props.step === props.id ? "#a79277" : "none"};
+    color: ${(props) => (props.step === props.id ? "#fff" : "#111")};
+  `,
+  SearchResultsContainer: styled.div`
+    position: relative;
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 100vh;
+    &::-webkit-scrollbar {
+      display: none;
     }
   `,
 };

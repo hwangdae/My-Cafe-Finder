@@ -2,13 +2,11 @@
 import React, { useEffect, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import styled from "styled-components";
-import { styleFont } from "@/styles/styleFont";
-import Cafe from "@/components/Cafe";
-import { PlaceType } from "@/types/type";
 import SearchContainer from "@/components/SearchContainer";
-import MyCafe from "./myCafe";
-import SearchResults from "./searchResults";
 import { useRouter } from "next/router";
+import {useRecoilState} from 'recoil'
+import { cafesState } from "@/globalState/recoilState";
+
 
 // const {kakao} = window;
 declare global {
@@ -35,7 +33,9 @@ const Home = () => {
   });
   const [map, setMap] = useState<any>();
   const [markers, setMarkers] = useState<any>();
-  const [cafes, setCafes] = useState<any>([]);
+  // const [cafes, setCafes] = useState<any>([]);
+  const [cafes, setCafes] = useRecoilState<any>(cafesState);
+
   const router = useRouter()
   console.log(router)
 
@@ -92,10 +92,7 @@ const Home = () => {
     <S.Container>
       <S.SideContainer>
         <SearchContainer />
-        <S.SearchResultsContainer>
-          {/* <SearchResults cafes={cafes}/>
-          <MyCafe/> */}
-        </S.SearchResultsContainer>
+        
       </S.SideContainer>
       <main>
         <Map
