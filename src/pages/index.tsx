@@ -92,7 +92,6 @@ const Home = () => {
     <S.Container>
       <S.SideContainer>
         <SearchContainer />
-        
       </S.SideContainer>
       <main>
         <Map

@@ -66,9 +66,11 @@ export default SearchContainer;
 const S = {
   SearchContainer: styled.div`
     width: 100%;
+    height: 100vh;
     position: absolute;
     left: 0;
     top: 0;
+    overflow :hidden;
   `,
   SearchInner: styled.div`
     padding: 20px;
@@ -81,7 +83,6 @@ const S = {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* padding: 20px; */
   `,
   SearchInput: styled.input`
     width: 94%;
@@ -117,7 +118,6 @@ const S = {
   `,
   TabMenuButton: styled.button<{ step: number; id: number }>`
     cursor: pointer;
-    /* display: block; */
     width: 100%;
     padding: 10px 0px;
     border-radius: 22px;
@@ -126,11 +126,7 @@ const S = {
     color: ${(props) => (props.step === props.id ? "#fff" : "#111")};
   `,
   SearchResultsContainer: styled.div`
-    position: relative;
     width: 100%;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    height: 100vh;
     &::-webkit-scrollbar {
       display: none;
     }
