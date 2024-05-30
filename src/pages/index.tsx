@@ -6,6 +6,10 @@ import SearchContainer from "@/components/SearchContainer";
 import { useRouter } from "next/router";
 import SearchResults from "./searchResults";
 import MyCafe from "./myCafe";
+import {useRecoilState} from 'recoil'
+import { cafesState } from "@/globalState/recoilState";
+
+
 
 declare global {
   interface Window {
@@ -31,9 +35,12 @@ const Home = () => {
   });
   const [map, setMap] = useState<any>();
   const [markers, setMarkers] = useState<any>();
-  const [cafes, setCafes] = useState<any>([]);
-  const router = useRouter();
-  console.log(router);
+
+  // const [cafes, setCafes] = useState<any>([]);
+  const [cafes, setCafes] = useRecoilState<any>(cafesState);
+
+  const router = useRouter()
+  console.log(router)
 
   useEffect(() => {
     // const { kakao } = window;
@@ -88,10 +95,6 @@ const Home = () => {
     <S.Container>
       <S.SideContainer>
         <SearchContainer />
-        <S.SearchResultsContainer>
-          <SearchResults cafes={cafes}/>
-          <MyCafe/>
-        </S.SearchResultsContainer>
       </S.SideContainer>
       <main>
         <Map
@@ -140,10 +143,10 @@ const S = {
   `,
 
   SearchResultsContainer: styled.div`
-    overflow-y: scroll;
-    height: 100vh;
-    &::-webkit-scrollbar {
-      display: none;
-    }
+    // overflow-y: scroll;
+    // height: 100vh;
+    // &::-webkit-scrollbar {
+    //   display: none;
+    // }
   `,
 };
