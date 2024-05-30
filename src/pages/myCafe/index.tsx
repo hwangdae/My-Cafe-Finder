@@ -17,7 +17,9 @@ const MyCafe = ({ step }: Propstype) => {
       transition={{ ease: "easeInOut" }}
     >
       <S.EmptyInner>
-        <p><Shop fill={"#cccccc"} /></p>
+        <S.EmptyIcon>
+          <Shop fill={"#cccccc"} />
+        </S.EmptyIcon>
         <S.EmptyTitle>내 카페엔 아직 아무것도 없어요 !</S.EmptyTitle>
       </S.EmptyInner>
     </S.Container>
@@ -35,14 +37,18 @@ const S = {
     top: 0;
     overflow: ${(props) => (props.step === 0 ? "hidden" : "visible")};
   `,
+  EmptyIcon: styled.p`
+    padding-bottom: 10px;
+  `,
   EmptyInner: styled.div`
     display: flex;
     justify-content: center;
     flex-direction: column;
-    align-items : center;
-    padding-top : 50px;
+    align-items: center;
+    padding-top: 50px;
   `,
-  EmptyTitle : styled.h2`
-    ${styleFont.textMedium}
+  EmptyTitle: styled.h2`
+    ${styleFont.textMedium};
+    color: #8f8f8f;
   `
 };

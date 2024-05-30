@@ -13,7 +13,7 @@ const SearchResults = ({ cafes, step }: any) => {
         transition={{ ease: "easeInOut" }}
       >
         {cafes?.map((cafe: PlaceType) => {
-          return <CafeInfo cafe={cafe} />;
+          return <CafeInfo key={cafe.id} cafe={cafe} />;
         })}
       </S.SearchResultsInner>
     </S.SearchResultsContainer>

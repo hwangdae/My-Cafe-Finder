@@ -7,6 +7,7 @@ import SearchResults from "@/pages/searchResults";
 import MyCafe from "@/pages/myCafe";
 import { useRecoilValue } from "recoil";
 import { cafesState } from "@/globalState/recoilState";
+import { TabMenuType } from "@/types/type";
 
 const TABNAV = [
   {
@@ -14,7 +15,7 @@ const TABNAV = [
     name: "검색",
     href: "/searchResults",
   },
-  { id: 1, name: "MYCAFE", href: "/myCafe" },
+  { id: 1, name: "내 카페", href: "/myCafe" },
 ];
 
 const SearchContainer = () => {
@@ -36,9 +37,9 @@ const SearchContainer = () => {
           </S.SearchButton>
         </S.SearchForm>
         <S.SearchTabMenu>
-          {TABNAV.map((item) => {
+          {TABNAV.map((item: TabMenuType) => {
             return (
-              <S.TabMenuItem>
+              <S.TabMenuItem key={item.id}>
                 <S.TabMenuButton
                   step={step}
                   id={item.id}
@@ -70,7 +71,7 @@ const S = {
     position: absolute;
     left: 0;
     top: 0;
-    overflow :hidden;
+    overflow: hidden;
   `,
   SearchInner: styled.div`
     padding: 20px;
@@ -124,6 +125,7 @@ const S = {
     background-color: ${(props) =>
       props.step === props.id ? "#a79277" : "none"};
     color: ${(props) => (props.step === props.id ? "#fff" : "#111")};
+    font-weight: ${(props) => (props.step === props.id ? "bold" : "nomal")};
   `,
   SearchResultsContainer: styled.div`
     width: 100%;

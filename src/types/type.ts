@@ -16,3 +16,9 @@ export interface PlaceType {
     x: string;
     y: string;
   }
+
+  export interface TabMenuType {
+    id : number;
+    name : string;
+    href : string
+  }

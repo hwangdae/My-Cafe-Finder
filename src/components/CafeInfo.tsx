@@ -16,7 +16,7 @@ const CafeInfo = ({ cafe }: PropsType) => {
   const [favoritesToggle, setFavoritesToggle] = useState(false);
 
   return (
-    <S.Cafe key={id}>
+    <S.Cafe>
       <S.CafeInfo>
         <S.CafeName>{place_name}</S.CafeName>
         <S.CafeAddressName>{address_name}</S.CafeAddressName>
