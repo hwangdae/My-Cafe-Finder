@@ -2,15 +2,11 @@
 import React, { useEffect, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import styled from "styled-components";
-import { styleFont } from "@/styles/styleFont";
-import Cafe from "@/components/Cafe";
-import { PlaceType } from "@/types/type";
 import SearchContainer from "@/components/SearchContainer";
-import MyCafe from "./myCafe";
-import SearchResults from "./searchResults";
 import { useRouter } from "next/router";
+import SearchResults from "./searchResults";
+import MyCafe from "./myCafe";
 
-// const {kakao} = window;
 declare global {
   interface Window {
     kakao: any;
@@ -36,11 +32,12 @@ const Home = () => {
   const [map, setMap] = useState<any>();
   const [markers, setMarkers] = useState<any>();
   const [cafes, setCafes] = useState<any>([]);
-  const router = useRouter()
-  console.log(router)
+  const router = useRouter();
+  console.log(router);
 
   useEffect(() => {
-    window.kakao.maps.load(() => {
+    // const { kakao } = window;
+    kakao.maps.load(() => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position: any) => {
           const lat = position.coords.latitude; // 위도
@@ -83,7 +80,6 @@ const Home = () => {
         setMarkers(markers);
         // map.setBounds(bounds);
       };
-
       searchPlaces();
     });
   }, []);
@@ -93,14 +89,15 @@ const Home = () => {
       <S.SideContainer>
         <SearchContainer />
         <S.SearchResultsContainer>
-          {/* <SearchResults cafes={cafes}/>
-          <MyCafe/> */}
+          <SearchResults cafes={cafes}/>
+          <MyCafe/>
         </S.SearchResultsContainer>
       </S.SideContainer>
       <main>
         <Map
           center={{ lat: state.center.lat, lng: state.center.lng }}
           style={{ width: "100%", height: "100vh" }}
+          onCreate={setMap}
         >
           {markers?.map((marker: MarkersType) => {
             return (
@@ -149,5 +146,4 @@ const S = {
       display: none;
     }
   `,
-  
 };

@@ -10,7 +10,7 @@ interface PropsType {
   cafe: PlaceType;
 }
 
-const Cafe = ({ cafe }: PropsType) => {
+const CafeInfo = ({ cafe }: PropsType) => {
 
   const { id, place_name, address_name, phone } = cafe;
   const [favoritesToggle, setFavoritesToggle] = useState(false);
@@ -36,7 +36,7 @@ const Cafe = ({ cafe }: PropsType) => {
   );
 };
 
-export default Cafe;
+export default CafeInfo;
 const S = {
   Cafe: styled.li`
     display: flex;
