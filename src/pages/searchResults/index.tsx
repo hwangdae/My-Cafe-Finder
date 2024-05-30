@@ -24,10 +24,11 @@ export default SearchResults;
 
 const S = {
   SearchResultsContainer : styled.div`
-    // position: absolute; left: 0; top: 0;
+    position : absolute; left : 0; top : 0;
+    margin-top : 141px;
     overflow-y: scroll;
-    height
-    // height: calc(100vh - 360px);
+    // height :100%;
+    height: calc(100vh - 141px);
     &::-webkit-scrollbar {
       display: none;
     }
