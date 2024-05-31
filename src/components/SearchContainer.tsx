@@ -29,7 +29,7 @@ const SearchContainer = () => {
           <S.SearchInput
             type="text"
             value={searchName}
-            onChange={(e) => e.target.value}
+            onChange={(e) => setSearchName(e.target.value)}
             placeholder="찾으시는 카페 있으신가요?"
           />
           <S.SearchButton>

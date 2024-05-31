@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import styled from "styled-components";
 import SearchContainer from "@/components/SearchContainer";
@@ -31,7 +31,6 @@ const Home = () => {
       lng: 126.570667,
     },
     errMsg: null,
-    isLoading: true,
   });
   const [map, setMap] = useState<any>();
   const [markers, setMarkers] = useState<any>();
@@ -39,29 +38,32 @@ const Home = () => {
   // const [cafes, setCafes] = useState<any>([]);
   const [cafes, setCafes] = useRecoilState<any>(cafesState);
 
-  const router = useRouter()
-  console.log(router)
+  console.log(state)
 
   useEffect(() => {
-    // const { kakao } = window;
+    const { kakao } = window;
     kakao.maps.load(() => {
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position: any) => {
+        navigator.geolocation.getCurrentPosition((position) => {
           const lat = position.coords.latitude; // 위도
           const lng = position.coords.longitude; // 경도
           setState((prev) => {
-            return { ...prev, center: { lat, lng }, isLoading: false };
+            return { ...prev, center: { lat, lng } };
           });
         });
+      }else{
+        alert('error')
       }
-
+      console.log(state)
       const searchPlaces = () => {
-        const ps = new kakao.maps.services.Places();
+        // const map = new kakao.maps.Map()
+        let ps = new kakao.maps.services.Places();
         const category = "CE7";
-        const options = {
-          location: new kakao.maps.LatLng(state.center.lat, state.center.lng),
+        let options = {
+          location: new kakao.maps.LatLng(state.center.lat,state.center.lng),
           sort: kakao.maps.services.SortBy.DISTANCE,
         };
+        console.log(options)
         ps.categorySearch(category, placesSearchCB, options);
       };
       const placesSearchCB = (data: any, status: string, pagination: any) => {
@@ -72,8 +74,8 @@ const Home = () => {
         }
       };
       const displayPlaces = (data: any) => {
-        const bounds = new kakao.maps.LatLngBounds();
-        // console.log(bounds.extend)
+        let bounds = new kakao.maps.LatLngBounds();
+        
         let markers: any = [];
         data.forEach((place: any) => {
           markers.push({
@@ -82,14 +84,15 @@ const Home = () => {
               lng: place.x,
             },
           });
+          bounds.extend(new kakao.maps.LatLng(place.y,place.x))
         });
 
         setMarkers(markers);
-        // map.setBounds(bounds);
+        map.setBounds(bounds);
       };
       searchPlaces();
     });
-  }, []);
+  }, [map]);
   console.log(markers);
   return (
     <S.Container>
@@ -110,7 +113,7 @@ const Home = () => {
               />
             );
           })}
-          {!state.isLoading && (
+          {/* {!state.isLoading && (
             <MapMarker
               position={state.center}
               image={{
@@ -121,7 +124,7 @@ const Home = () => {
                 },
               }}
             />
-          )}
+          )} */}
         </Map>
       </main>
     </S.Container>
