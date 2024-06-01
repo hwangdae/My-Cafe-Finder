@@ -47,35 +47,39 @@ const Home = () => {
         navigator.geolocation.getCurrentPosition((position) => {
           const lat = position.coords.latitude; // 위도
           const lng = position.coords.longitude; // 경도
-          setState((prev) => {
-            return { ...prev, center: { lat, lng } };
-          });
+          setState((prev) => ({
+            ...prev,
+            center: { lat, lng },
+          }));
+        }, () => {
+          alert("Error retrieving location");
         });
-      }else{
-        alert('error')
+      } else {
+        alert("Geolocation not supported");
       }
-      console.log(state)
+    });
+  }, []);
+
+  useEffect(() => {
+    if (map && state.center.lat && state.center.lng) {
+      const { kakao } = window;
       const searchPlaces = () => {
-        // const map = new kakao.maps.Map()
         let ps = new kakao.maps.services.Places();
         const category = "CE7";
         let options = {
-          location: new kakao.maps.LatLng(state.center.lat,state.center.lng),
+          location: new kakao.maps.LatLng(state.center.lat, state.center.lng),
           sort: kakao.maps.services.SortBy.DISTANCE,
         };
-        console.log(options)
         ps.categorySearch(category, placesSearchCB, options);
       };
       const placesSearchCB = (data: any, status: string, pagination: any) => {
         if (status === kakao.maps.services.Status.OK) {
-          console.log(data);
           setCafes(data);
           displayPlaces(data);
         }
       };
       const displayPlaces = (data: any) => {
         let bounds = new kakao.maps.LatLngBounds();
-        
         let markers: any = [];
         data.forEach((place: any) => {
           markers.push({
@@ -84,15 +88,17 @@ const Home = () => {
               lng: place.x,
             },
           });
-          bounds.extend(new kakao.maps.LatLng(place.y,place.x))
+          bounds.extend(new kakao.maps.LatLng(place.y, place.x));
         });
-
         setMarkers(markers);
         map.setBounds(bounds);
       };
       searchPlaces();
-    });
-  }, [map]);
+    }
+  }, [map, state.center]);
+
+
+
   console.log(markers);
   return (
     <S.Container>

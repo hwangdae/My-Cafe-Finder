@@ -23,9 +23,12 @@ const SearchResults = ({ cafes, step }: any) => {
 export default SearchResults;
 
 const S = {
-  SearchResultsContainer : styled.div`
-    position : absolute; left : 0; top : 0;
-    margin-top : 141px;
+  SearchResultsContainer: styled.div`
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin-top: 141px;
     overflow-y: scroll;
     // height :100%;
     height: calc(100vh - 141px);
