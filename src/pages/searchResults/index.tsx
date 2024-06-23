@@ -35,8 +35,6 @@ const S = {
   SearchResultsContainer : styled.div`
     position : absolute; left : 0; top : 0;
     width: 100%;
-    height: 100%;
-    /* height: calc(100vh - 141px); */
     /* margin-top : 141px; */
     overflow-y: scroll;
     &::-webkit-scrollbar {

@@ -25,7 +25,7 @@ const SearchContainer = () => {
           <S.SearchInput
             type="text"
             value={searchName}
-            onChange={(e) => e.target.value}
+            onChange={(e) => setSearchName(e.target.value)}
             placeholder="찾으시는 카페 있으신가요?"
           />
           <S.SearchButton>
@@ -131,7 +131,8 @@ const S = {
     width: 100%;
     height: calc(100vh - 141px);
     margin-top : 141px;
-    overflow: hidden;
+    overflow-y: scroll;
+    /* overflow: hidden; */
     &::-webkit-scrollbar {
       display: none;
     }
