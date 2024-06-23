@@ -3,8 +3,17 @@ import { PlaceType } from "@/types/type";
 import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { useRecoilValue } from "recoil";
+import { cafesState } from "@/globalState/recoilState";
 
-const SearchResults = ({ cafes, step }: any) => {
+interface PropsType {
+  step : number
+}
+
+const SearchResults = ( {step} : PropsType) => {
+
+  const cafes = useRecoilValue(cafesState);
+
   return (
     <S.SearchResultsContainer>
       <S.SearchResultsInner
@@ -25,16 +34,17 @@ export default SearchResults;
 const S = {
   SearchResultsContainer : styled.div`
     position : absolute; left : 0; top : 0;
+    width: 100%;
+    height: calc(100vh - 141px);
     margin-top : 141px;
     overflow-y: scroll;
-    // height :100%;
-    height: calc(100vh - 141px);
     &::-webkit-scrollbar {
       display: none;
     }
   `,
   SearchResultsInner: styled(motion.ul)<{ step: number }>`
     width: 100%;
+    position: relative; left: 0; top: 0;
     overflow: ${(props) => (props.step === 1 ? "hidden" : "visible")};
   `,
 };

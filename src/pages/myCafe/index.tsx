@@ -18,7 +18,7 @@ const MyCafe = ({ step }: Propstype) => {
     >
       <S.EmptyInner>
         <S.EmptyIcon>
-          <Shop fill={"#cccccc"} />
+          <Shop fill={"#cccccc"} width="100px" height="100px" />
         </S.EmptyIcon>
         <S.EmptyTitle>내 카페엔 아직 아무것도 없어요 !</S.EmptyTitle>
       </S.EmptyInner>

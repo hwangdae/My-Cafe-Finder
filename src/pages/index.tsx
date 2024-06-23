@@ -6,10 +6,8 @@ import SearchContainer from "@/components/SearchContainer";
 import { useRouter } from "next/router";
 import SearchResults from "./searchResults";
 import MyCafe from "./myCafe";
-import {useRecoilState} from 'recoil'
+import { useRecoilState } from "recoil";
 import { cafesState } from "@/globalState/recoilState";
-
-
 
 declare global {
   interface Window {
@@ -39,11 +37,10 @@ const Home = () => {
   // const [cafes, setCafes] = useState<any>([]);
   const [cafes, setCafes] = useRecoilState<any>(cafesState);
 
-  const router = useRouter()
-  console.log(router)
+  const router = useRouter();
+  console.log(router);
 
   useEffect(() => {
-    // const { kakao } = window;
     kakao.maps.load(() => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position: any) => {
@@ -54,7 +51,11 @@ const Home = () => {
           });
         });
       }
+    });
+  }, []);
 
+  useEffect(() => {
+    if (map && state.center.lat && state.center.lng) {
       const searchPlaces = () => {
         const ps = new kakao.maps.services.Places();
         const category = "CE7";
@@ -83,13 +84,12 @@ const Home = () => {
             },
           });
         });
-
         setMarkers(markers);
         // map.setBounds(bounds);
       };
       searchPlaces();
-    });
-  }, []);
+    }
+  }, [map,state]);
   console.log(markers);
   return (
     <S.Container>

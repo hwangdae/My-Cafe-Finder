@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Search from "@/assets/Search.svg";
-import Link from "next/link";
-import shortid from "shortid";
 import SearchResults from "@/pages/searchResults";
 import MyCafe from "@/pages/myCafe";
-import { useRecoilValue } from "recoil";
-import { cafesState } from "@/globalState/recoilState";
 import { TabMenuType } from "@/types/type";
 
 const TABNAV = [
@@ -21,7 +17,7 @@ const TABNAV = [
 const SearchContainer = () => {
   const [step, setStep] = useState<number>(0);
   const [searchName, setSearchName] = useState("");
-  const cafes = useRecoilValue(cafesState);
+
   return (
     <S.SearchContainer>
       <S.SearchInner>
@@ -55,7 +51,7 @@ const SearchContainer = () => {
         </S.SearchTabMenu>
       </S.SearchInner>
       <S.SearchResultsContainer>
-        <SearchResults cafes={cafes} step={step} />
+        <SearchResults step={step} />
         <MyCafe step={step} />
       </S.SearchResultsContainer>
     </S.SearchContainer>
