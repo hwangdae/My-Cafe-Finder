@@ -1,5 +1,5 @@
 import { styleFont } from "@/styles/styleFont";
-import React, {useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Indent from "@/assets/Indent.svg";
 import Star from "@/assets/Star.svg";
@@ -11,9 +11,13 @@ interface PropsType {
 }
 
 const CafeInfo = ({ cafe }: PropsType) => {
-
   const { id, place_name, address_name, phone } = cafe;
+  const [detailCafeInfoToggle, setDetailCafeInfoToggle] = useState(false);
   const [favoritesToggle, setFavoritesToggle] = useState(false);
+
+  const detailCafeInfoHandler = () => {
+    setDetailCafeInfoToggle(!detailCafeInfoToggle)
+  }
 
   return (
     <S.Cafe>
@@ -23,15 +27,19 @@ const CafeInfo = ({ cafe }: PropsType) => {
         <S.CafePhone>{phone}</S.CafePhone>
       </S.CafeInfo>
       <S.CafeFn>
-        <S.CafeMoreInfoButton>
+        <S.CafeMoreInfoButton
+          onClick={detailCafeInfoHandler}
+        >
           <Indent />
         </S.CafeMoreInfoButton>
+        
         <S.CafeFavoritesButton
           onClick={() => setFavoritesToggle(!favoritesToggle)}
         >
           <Star fill={favoritesToggle ? `${styleColor.BROWN[0]}` : "current"} />
         </S.CafeFavoritesButton>
       </S.CafeFn>
+      {detailCafeInfoToggle && <S.DetailCafeInfo>{place_name}</S.DetailCafeInfo>}
     </S.Cafe>
   );
 };
@@ -65,4 +73,13 @@ const S = {
   CafeFavoritesButton: styled.button`
     cursor: pointer;
   `,
+  DetailCafeInfo : styled.div`
+    position: absolute;
+    left: 360px;
+    top: 0px;
+    background-color: #fff;
+    width: 300px;
+    height: 100px;
+    z-index: 999;
+  `
 };

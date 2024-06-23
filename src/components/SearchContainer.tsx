@@ -54,6 +54,7 @@ const SearchContainer = () => {
         <SearchResults step={step} />
         <MyCafe step={step} />
       </S.SearchResultsContainer>
+      <S.Aaaa>aaa</S.Aaaa>
     </S.SearchContainer>
   );
 };
@@ -67,7 +68,7 @@ const S = {
     position: absolute;
     left: 0;
     top: 0;
-    overflow: hidden;
+    /* overflow: hidden; */
   `,
   SearchInner: styled.div`
     padding: 20px;
@@ -124,9 +125,23 @@ const S = {
     font-weight: ${(props) => (props.step === props.id ? "bold" : "nomal")};
   `,
   SearchResultsContainer: styled.div`
+    position: absolute;
+    left: 0;
+    top: 0;
     width: 100%;
+    height: calc(100vh - 141px);
+    margin-top : 141px;
+    overflow: hidden;
     &::-webkit-scrollbar {
       display: none;
     }
+  `,
+  Aaaa: styled.div`
+    position: absolute;
+    left: 360px;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    background-color: #fff;
   `,
 };
