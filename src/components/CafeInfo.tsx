@@ -20,6 +20,7 @@ const CafeInfo = ({ cafe }: PropsType) => {
   }
 
   return (
+    <>
     <S.Cafe>
       <S.CafeInfo>
         <S.CafeName>{place_name}</S.CafeName>
@@ -39,8 +40,10 @@ const CafeInfo = ({ cafe }: PropsType) => {
           <Star fill={favoritesToggle ? `${styleColor.BROWN[0]}` : "current"} />
         </S.CafeFavoritesButton>
       </S.CafeFn>
-      {detailCafeInfoToggle && <S.DetailCafeInfo>{place_name}</S.DetailCafeInfo>}
+      
     </S.Cafe>
+    {detailCafeInfoToggle && <S.DetailCafeInfo>{place_name}</S.DetailCafeInfo>}
+    </>
   );
 };
 
@@ -79,7 +82,7 @@ const S = {
     top: 0px;
     background-color: #fff;
     width: 300px;
-    height: 100px;
+    height: 100vh;
     z-index: 999;
   `
 };

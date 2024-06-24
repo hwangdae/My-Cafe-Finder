@@ -30,12 +30,12 @@ export default MyCafe;
 
 const S = {
   Container: styled(motion.div)<{ step: number }>`
-    margin-top: 141px;
+    margin-top: 183px;
     width: 100%;
     position: absolute;
     right: 0;
     top: 0;
-    overflow: ${(props) => (props.step === 0 ? "hidden" : "visible")};
+    /* overflow: ${(props) => (props.step === 0 ? "hidden" : "visible")}; */
   `,
   EmptyIcon: styled.p`
     padding-bottom: 10px;

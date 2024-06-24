@@ -4,6 +4,7 @@ import Search from "@/assets/Search.svg";
 import SearchResults from "@/pages/searchResults";
 import MyCafe from "@/pages/myCafe";
 import { TabMenuType } from "@/types/type";
+import { styleFont } from "@/styles/styleFont";
 
 const TABNAV = [
   {
@@ -21,6 +22,7 @@ const SearchContainer = () => {
   return (
     <S.SearchContainer>
       <S.SearchInner>
+        <S.Logo>MyCafeFinder</S.Logo>
         <S.SearchForm>
           <S.SearchInput
             type="text"
@@ -51,10 +53,8 @@ const SearchContainer = () => {
         </S.SearchTabMenu>
       </S.SearchInner>
       <S.SearchResultsContainer>
-        <SearchResults step={step} />
-        <MyCafe step={step} />
+        {step === 0 ? <SearchResults step={step} /> : <MyCafe step={step} />}
       </S.SearchResultsContainer>
-      <S.Aaaa>aaa</S.Aaaa>
     </S.SearchContainer>
   );
 };
@@ -68,11 +68,16 @@ const S = {
     position: absolute;
     left: 0;
     top: 0;
-    /* overflow: hidden; */
   `,
   SearchInner: styled.div`
     padding: 20px;
     background-color: #d1bb9e;
+  `,
+  Logo :styled.h1`
+    margin-bottom: 20px;
+    ${styleFont.textLarge}
+    font-weight: bold;
+    color: #fff;
   `,
   SearchForm: styled.form`
     position: relative;
@@ -125,14 +130,9 @@ const S = {
     font-weight: ${(props) => (props.step === props.id ? "bold" : "nomal")};
   `,
   SearchResultsContainer: styled.div`
-    position: absolute;
-    left: 0;
-    top: 0;
     width: 100%;
-    height: calc(100vh - 141px);
-    margin-top : 141px;
+    height: calc(100vh - 183px);
     overflow-y: scroll;
-    /* overflow: hidden; */
     &::-webkit-scrollbar {
       display: none;
     }
