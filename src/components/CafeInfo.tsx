@@ -16,33 +16,47 @@ const CafeInfo = ({ cafe }: PropsType) => {
   const [favoritesToggle, setFavoritesToggle] = useState(false);
 
   const detailCafeInfoHandler = () => {
-    setDetailCafeInfoToggle(!detailCafeInfoToggle)
-  }
+    setDetailCafeInfoToggle(!detailCafeInfoToggle);
+  };
 
   return (
     <>
-    <S.Cafe>
-      <S.CafeInfo>
-        <S.CafeName>{place_name}</S.CafeName>
-        <S.CafeAddressName>{address_name}</S.CafeAddressName>
-        <S.CafePhone>{phone}</S.CafePhone>
-      </S.CafeInfo>
-      <S.CafeFn>
-        <S.CafeMoreInfoButton
-          onClick={detailCafeInfoHandler}
-        >
-          <Indent />
-        </S.CafeMoreInfoButton>
-        
-        <S.CafeFavoritesButton
-          onClick={() => setFavoritesToggle(!favoritesToggle)}
-        >
-          <Star fill={favoritesToggle ? `${styleColor.BROWN[0]}` : "current"} />
-        </S.CafeFavoritesButton>
-      </S.CafeFn>
-      
-    </S.Cafe>
-    {detailCafeInfoToggle && <S.DetailCafeInfo>{place_name}</S.DetailCafeInfo>}
+      <S.Cafe>
+        <S.CafeInfo>
+          <S.CafeName>{place_name}</S.CafeName>
+          <S.CafeAddressName>{address_name}</S.CafeAddressName>
+          <S.CafePhone>{phone}</S.CafePhone>
+        </S.CafeInfo>
+        <S.CafeFn>
+          <S.CafeMoreInfoButton onClick={detailCafeInfoHandler}>
+            <Indent />
+          </S.CafeMoreInfoButton>
+
+          <S.CafeFavoritesButton
+            onClick={() => setFavoritesToggle(!favoritesToggle)}
+          >
+            <Star
+              fill={favoritesToggle ? `${styleColor.BROWN[0]}` : "current"}
+            />
+          </S.CafeFavoritesButton>
+        </S.CafeFn>
+      </S.Cafe>
+      {detailCafeInfoToggle && (
+        <S.DetailContainer>
+          <S.DetailCafeInfo>
+            <S.DetailCafeName>{place_name}</S.DetailCafeName>
+            <S.DetailImage></S.DetailImage>
+            <S.DetailAddress>위치 {address_name}</S.DetailAddress>
+          </S.DetailCafeInfo>
+          <S.CafeReviewContainer>
+            <S.CafeReviewTitle>나의 후기</S.CafeReviewTitle>
+            <S.MyCafeReview>
+              <S.NoReview>등록된 후기가 없습니다.</S.NoReview>
+              <S.WriteReview>후기 작성하기</S.WriteReview>
+            </S.MyCafeReview>
+          </S.CafeReviewContainer>
+        </S.DetailContainer>
+      )}
     </>
   );
 };
@@ -76,7 +90,8 @@ const S = {
   CafeFavoritesButton: styled.button`
     cursor: pointer;
   `,
-  DetailCafeInfo : styled.div`
+  //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  DetailContainer: styled.div`
     position: absolute;
     left: 360px;
     top: 0px;
@@ -84,5 +99,28 @@ const S = {
     width: 300px;
     height: 100vh;
     z-index: 999;
-  `
+  `,
+  DetailCafeInfo: styled.div``,
+  DetailCafeName: styled.h1`
+    /* text-align: center; */
+    text-indent: 6px;
+    padding: 14px 0px;
+    ${styleFont.textLarge}
+    background-color: ${styleColor.BROWN[100]};
+  `,
+  DetailImage: styled.h2`
+    width: 100%;
+    height: 147px;
+    background-color: #666;
+  `,
+  DetailAddress: styled.p``,
+  CafeReviewContainer: styled.div`
+    border-top: solid 1px #999;
+  `,
+  CafeReviewTitle: styled.h1`
+    ${styleFont.textLarge}
+  `,
+  MyCafeReview: styled.div``,
+  NoReview: styled.p``,
+  WriteReview: styled.button``,
 };
