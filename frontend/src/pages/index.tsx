@@ -8,6 +8,7 @@ import SearchResults from "./searchResults";
 import MyCafe from "./myCafe";
 import { useRecoilState } from "recoil";
 import { cafesState } from "@/globalState/recoilState";
+import axios from "axios";
 
 declare global {
   interface Window {
@@ -56,6 +57,13 @@ const Home = () => {
 
   useEffect(() => {
     if (map && state.center.lat && state.center.lng) {
+      const  fetchCafes = async () => {
+        try {
+          const response = await axios.get(`http://localhost:5000/api/cafes?lat=${state.center.lat}&lng=${state.center.lng}`)
+        } catch (error) {
+          console.log("fetching cafes error",error)
+        }
+      }
       const searchPlaces = () => {
         const ps = new kakao.maps.services.Places();
         const category = "CE7";
